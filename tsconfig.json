@@ -4,7 +4,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,9 +18,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      // "@components": ["app/components/"],
+      // "@pages": ["app/pages/"],
+      // "~/*": ["app/*"]
+    },
   },
   "include": [
-    "src"
-  ]
+    "src",
+  ],
+  "exclude": ["node_modules"],
 }
