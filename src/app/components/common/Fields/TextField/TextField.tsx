@@ -2,30 +2,44 @@ import clsx from 'clsx';
 import React, { useId } from 'react';
 
 interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  className?: string
+  classNameInput?: string;
+  classNameInputBox?: string;
+  classNameLabel?: string;
+  label?: string
 }
 
-const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => {
+const TextField: React.FC<TextFieldProps> = ({
+  classNameInput,
+  classNameInputBox,
+  classNameLabel,
+  label,
+  ...props
+}) => {
   const id = useId();
   return (
-    <div className="mb-3">
-      <label
-        htmlFor={id}
-        className="form-label"
-      >
-        Email address
-        <input
-          id={id}
-          className={clsx('form-control', className)}
-          {...props}
-        />
-      </label>
+    <div className={classNameInputBox}>
+      {label && (
+        <label
+          htmlFor={id}
+          className={clsx('form-label', classNameLabel)}
+        >
+          {label}
+        </label>
+      )}
+      <input
+        id={id}
+        className={clsx('form-control', classNameInput)}
+        {...props}
+      />
     </div>
   );
 };
 
 TextField.defaultProps = {
-  className: '',
+  classNameInput: undefined,
+  classNameInputBox: undefined,
+  classNameLabel: undefined,
+  label: '',
 };
 
 export default TextField;
