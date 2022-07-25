@@ -1,5 +1,6 @@
+import { Stack, Box } from '@mui/material';
+import { NavLink } from 'app/components/';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 // import styles from './NavBar.module.scss';
 
 const NAVBAR_LINKS = [
@@ -11,35 +12,20 @@ const NAVBAR_LINKS = [
   },
   {
     id: 1,
-    link: '#',
+    link: '',
     label: 'Posts(in development)',
     disabled: true,
   },
 ];
 
 const NavBar:React.FC = () => (
-  <nav className="navbar navbar-expand-lg">
-    <ul className="nav nav-pills gap-2">
-      {NAVBAR_LINKS.map(({
-        label, id, link, disabled,
-      }) => (
-        <li className="nav-item" key={id}>
-          <NavLink
-            to={link}
-            className={({ isActive }) => [
-              'nav-link',
-              disabled && 'disabled',
-              isActive && !disabled ? 'active' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
-            {label}
-          </NavLink>
-        </li>
+  <Box component="nav">
+    <Stack direction="row" spacing={2}>
+      {NAVBAR_LINKS.map((link) => (
+        <NavLink key={link.id} linkData={link} />
       ))}
-    </ul>
-  </nav>
+    </Stack>
+  </Box>
 );
 
 export default NavBar;

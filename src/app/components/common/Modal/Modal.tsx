@@ -1,50 +1,53 @@
-import { useOnClickOutside } from 'app/hooks';
-import { usePressKey } from 'app/hooks/usePressKey';
-import React, { useRef } from 'react';
+import React from 'react';
+import {
+  Modal as ModalMUI, Box, Typography, IconButton,
+} from '@mui/material';
 import { X } from 'tabler-icons-react';
-import { Button } from '../Button';
-
-import styles from './Modal.module.scss';
 
 interface ModalProps {
-  children: React.ReactNode;
-  title?: string;
+  open: boolean;
   onClose: () => void;
-  onAction: () => void;
+  title?: string
+  children: React.ReactNode
 }
 
-const Modal: React.FC<ModalProps> = ({
-  onAction, onClose, children, title,
+const Modal:React.FC<ModalProps> = ({
+  open, children, onClose, title,
 }) => {
-  const dialogRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside(dialogRef, onClose);
-  usePressKey('Escape', onClose);
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'fit-content',
+    minWidth: 400,
+    minHeight: 200,
+    display: 'flex',
+    flexDirection: 'column',
+    bgcolor: 'background.paper',
+    borderRadius: 4,
+    boxShadow: 24,
+    padding: '10px 15px 20px',
+  };
   return (
-    <div
-      className={styles.Modal}
-      tabIndex={-1}
+    <ModalMUI
+      open={open}
+      onClose={onClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
     >
-      <div ref={dialogRef} className={styles.Modal_dialog}>
-        <div className={styles.Modal_header}>
-          <h4 className={styles.Modal_title}>{title}</h4>
-          <Button
-            className={styles.Modal_exit}
-            size="sm"
-            color="light"
-            onClick={onClose}
-          >
-            <X size={18} />
-          </Button>
-        </div>
-        <div className={styles.Modal_content}>
+      <Box sx={style}>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="h5" fontWeight={700}>{title}</Typography>
+          <IconButton size="small" onClick={onClose}>
+            <X size={20} />
+          </IconButton>
+        </Box>
+        <Box sx={{ flex: 1, mt: 2 }}>
           {children}
-        </div>
-        <div className={styles.Actions}>
-          <Button onClick={onAction}>Submit</Button>
-          <Button color="secondary" onClick={onClose}>Cancel</Button>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </ModalMUI>
   );
 };
 

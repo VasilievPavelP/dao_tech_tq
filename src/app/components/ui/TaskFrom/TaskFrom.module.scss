@@ -1,0 +1,25 @@
+.Textarea {
+  width: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  &_label {
+    position: absolute;
+    left: 11px;
+    top: -0.75em;
+    padding: 0 4px;
+    width: fit-content;
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.75em;
+    font-weight: 300;
+  }
+
+  &_input {
+    border-color: rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    resize: none;
+    padding: 8.5px 14px;
+  }
+}
